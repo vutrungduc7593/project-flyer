@@ -11,10 +11,14 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages.home');
+Route::get('/', function() {
+	return redirect('/home');
 });
 
+Route::get('/home', 'HomeController@index');
+
 Route::resource('flyers', 'FlyersController');
-Route::get('{zip}/{street}', 'FlyersController@show');
+Route::get('{zip}/{street}', ['as' => 'show_flyer', 'uses' => 'FlyersController@show']);
 Route::post('{zip}/{street}/photos', ['as' => 'store_photo_path', 'uses' => 'FlyersController@addPhoto']);
+
+Auth::routes();

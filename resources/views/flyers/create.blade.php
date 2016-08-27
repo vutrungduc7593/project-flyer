@@ -5,18 +5,10 @@
 
 	<hr>
 
-	@if (@count($errors) > 0)
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+	@include('errors')   
 
 	<form method="POST" action="{{ url('/flyers') }}" enctype="multipart/form-data" >
 		@include('flyers.form')
-	</form>	
+	</form>
 
 @endsection
