@@ -14,11 +14,12 @@ class Flyer extends Model
 	 **/
 	protected $fillable = [
 		'street',
+		'user_id',
 		'city',
 		'state',
 		'country',
 		'zip',
-		'price',
+		'price',		
 		'description'
 	];
 
@@ -53,4 +54,22 @@ class Flyer extends Model
     {
     	return $this->hasMany('App\Photo');
     }
+
+    /**
+     * A flyer is owned by a user.
+     * @return Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function owner() {
+    	return $this->belongsTo('App\User', 'user_id');
+    }
+
+    /**
+     * Determine if the given user created the flyer.
+     *
+     * @param User $user 
+     * @return boolean 
+     **/
+    public function ownedBy(User $user) {
+    	return $this->user_id == $user->id;
+    }    
 }

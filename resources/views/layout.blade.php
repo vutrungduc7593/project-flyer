@@ -21,7 +21,7 @@
 
 <body>
 
-  <nav class="navbar navbar-inverse navbar-fixed-top">
+  <nav class="navbar navbar-default navbar-fixed-top">
       <div class="container">
           <div class="navbar-header">
 
@@ -43,13 +43,14 @@
               <!-- Left Side Of Navbar -->
               <ul class="nav navbar-nav">
                   <li class="active"><a href="{{ url('/home') }}">Home</a></li>
+                  <li><a href="{{ url('/flyers') }}">Flyers</a></li>
                   <li><a href="#about">About</a></li>
-                  <li><a href="#contact">Contact</a></li>
+                  <li><a href="#contact">Contact</a></li>                  
                   <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Flyers <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Menu <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                      <li><a href="{{ url('/flyers') }}">List Flyers</a></li>
-                      <li><a href="{{ url('/flyers/create') }}">Create Flyer</a></li>                      
+                      <li><a href="#">Action</a></li>
+                      <li><a href="#">Another Action</a></li>                      
                       <li role="separator" class="divider"></li>
                       <li class="dropdown-header">Nav header</li>
                       <li><a href="#">Separated link</a></li>
@@ -67,7 +68,7 @@
                   @else
                       <li class="dropdown">
                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                              {{ Auth::user()->name }} <span class="caret"></span>
+                              Hello, {{ Auth::user()->name }} <span class="caret"></span>
                           </a>
 
                           <ul class="dropdown-menu" role="menu">

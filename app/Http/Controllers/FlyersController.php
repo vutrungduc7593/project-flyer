@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Http\UploadedFile;
-use App\Http\Requests\FlyerRequest;
 use App\Flyer;
-use App\Photo;
+use Illuminate\Http\Request;
+use App\Http\Requests\FlyerRequest;
 
 class FlyersController extends Controller
 {
+
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['show']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);    
     }
 
     /**
@@ -33,8 +32,6 @@ class FlyersController extends Controller
      */
     public function create()
     {
-        // flash()->overlay('Hello World!', 'This is a message.');
-
         return view('flyers.create');
     }
 
@@ -46,11 +43,13 @@ class FlyersController extends Controller
      */
     public function store(FlyerRequest $request)
     {        
-        Flyer::create($request->all());
+        $flyer = $request->user()->publish(
+            new Flyer($request->all())
+        );        
         
         flash()->success('Success!', 'Your flyer has been created.');
 
-        return redirect('/flyers');
+        return redirect(flyer_path($flyer));
     }    
     
     /**
@@ -65,30 +64,7 @@ class FlyersController extends Controller
         $flyer = Flyer::locatedAt($zip, $street);
 
         return view('flyers.show', compact('flyer'));
-    }
-
-    /**
-     * Applying a photo to the refenreced flyer.
-     * 
-     * @param string  $zip     
-     * @param string  $street  
-     * @param Request $request 
-     */
-    public function addPhoto($zip, $street, Request $request) {
-
-        $this->validate($request, [
-            'photo' => 'required|mimes:jpg,jpeg,png,bmp'
-        ]);        
-
-        $photo = $this->makePhoto($request->file('photo'));
-
-        Flyer::locatedAt($zip, $street)->addPhoto($photo);        
-    }
-
-    public function makePhoto(UploadedFile $file) {
-        return Photo::named($file->getClientOriginalName())
-                ->move($file);
-    }
+    }    
 
     /**
      * Show the form for editing the specified resource.

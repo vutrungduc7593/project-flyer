@@ -17,27 +17,29 @@
 				<div class="row">
 					@foreach ($set as $photo)
 						<div class="col-md-3 gallery__image">
-							<img src="{{ url($photo->thumbnail_path) }}" alt="">
+							<a href="{{ url($photo->path) }}" data-lity>
+								<img src="{{ url($photo->thumbnail_path) }}" alt="">
+							</a>
 						</div>
 					@endforeach
 				</div>
 			@endforeach
+
+			@if (Auth::user() && Auth::user()->owns($flyer))
+				<hr>
+
+				<form 	id="addPhotosForm" 
+						action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}" 
+						method="POST" 
+						class="dropzone" 
+				>
+					{{ csrf_field() }}
+				</form>
+
+				<br>
+			@endif			
 		</div>
-	</div>	
-
-	<hr>
-	<h2>Add Your Photos</h2>
-	
-	<form 	id="addPhotosForm" 
-			action="{{ route('store_photo_path', [$flyer->zip, $flyer->street]) }}" 
-			method="POST" 
-			class="dropzone" 
-	>
-		{{ csrf_field() }}
-
-	</form>
-			
-	<br>
+	</div>
 @stop
 
 @section('scripts.footer')

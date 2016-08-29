@@ -11,7 +11,8 @@
 			    <thead>
 			      <tr>
 			        <th>Flyer</th>
-			        <th>&nbsp;</th>
+			        <th>Created At</th>
+			        {{-- <th>&nbsp;</th> --}}
 			      </tr>
 			    </thead>
 			    <tbody>
@@ -21,9 +22,12 @@
 			    				<a href="{{ route('show_flyer', [$flyer->zip, $flyer->street]) }}">{{ $flyer->street }}</a>
 			    			</td>
 			    			<td>
+			    				{{ $flyer->created_at->format('m-d-Y') }}
+			    			</td>
+			    			{{-- <td>
 			    				<button class="btn btn-warning">Edit</button>
 			    				<button class="btn btn-danger">Delete</button>
-			    			</td>
+			    			</td> --}}
 			    		</tr>
 			    	@endforeach
 			    </tbody>
