@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-4">
 			<h1>{{ $flyer->street }}</h1>
-			<h2>{!! $flyer->price !!}</h2>
+			<h2>{{ $flyer->price }}</h2>
 
 			<hr>
 
@@ -17,6 +17,8 @@
 				<div class="row">
 					@foreach ($set as $photo)
 						<div class="col-md-3 gallery__image">
+							{!! link_to('Delete', "photos/{$photo->id}", 'DELETE') !!}
+
 							<a href="{{ url($photo->path) }}" data-lity>
 								<img src="{{ url($photo->thumbnail_path) }}" alt="">
 							</a>

@@ -27,4 +27,12 @@ class Photo extends Model
     public function baseDir() {
         return 'uploaded/photos';
     }   
+
+    public function delete() {
+        \File::delete([
+            $this->path,
+            $this->thumbnail_path
+        ]);
+        parent::delete();
+    }
 }

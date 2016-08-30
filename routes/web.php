@@ -17,8 +17,10 @@ Route::get('/', function() {
 
 Route::get('/home', 'HomeController@index');
 
+Auth::routes();
+
 Route::resource('flyers', 'FlyersController');
 Route::get('{zip}/{street}', ['as' => 'show_flyer', 'uses' => 'FlyersController@show']);
 Route::post('{zip}/{street}/photos', ['as' => 'store_photo_path', 'uses' => 'PhotosController@store']);
 
-Auth::routes();
+Route::delete('photos/{id}', 'PhotosController@destroy');
